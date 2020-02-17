@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "postinst $1"
+
+ldconfig

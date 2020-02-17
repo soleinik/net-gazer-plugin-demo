@@ -6,18 +6,40 @@ use pnet::packet::ethernet::EthernetPacket;
 
 
 const ID:u8=10;
-const DESCRIPTION:&str="Test plugin";
+const NAME:&str="Test plugin";
 
 
 pub struct Test;
 
 
-impl <'a> Plugin<'a> for Test{
-    fn get_description()->String{ DESCRIPTION.into()}
-    fn get_id() -> u8 {ID}
-   
-    fn process(_tx:&'a CoreTxSender, _pkt:&'a EthernetPacket){
-        error!("plugin processing with [{}] {}", ID, DESCRIPTION);
+impl <'p, 'd> Plugin<'p, EthernetPacket<'d>> for Test{
+
+    fn get_name(&self)->&str{NAME}
+
+    fn get_id(&self) -> u8 {ID}
+ 
+    fn on_load(&self){
+        env_logger::init();
+
+        error!("Hello from [{}] \"{}\"! ", ID, NAME);
 
     }
+    fn on_unload(&self){
+        error!("Good bye from [{}] \"{}\" ", ID, NAME);
+    }
+
+    fn process(&self, _tx:&'_ CoreSender, _pkt:&'_ EthernetPacket){
+        error!("plugin processing with [{}] \"{}\"", ID, NAME);
+    }
+
 }
+
+
+#[no_mangle]
+pub extern "C" fn net_gazer_plugin_new<'p,'d> () -> * mut dyn Plugin<'p, EthernetPacket<'d>>{
+     let boxed:Box<Test> = Box::new(Test{});
+     Box::into_raw(boxed)
+}
+
+
+

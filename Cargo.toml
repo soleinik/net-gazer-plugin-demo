@@ -10,6 +10,8 @@ description = "packet processing plugin for net-gazer"
 [dependencies]
 net-gazer-core = { git = "https://github.com/soleinik/net-gazer-core", branch = "master"}
 log = "0.4.8"
+env_logger = "0.7.1"
+
 pnet = "0.25.0"
 
 [lib]
@@ -28,6 +30,8 @@ assets = [
     ["target/release/libnet_gazer_01.so", "usr/local/lib/net-gazer/", "755"],
     # config
     ["etc/net-gazer/libnet-gazer-01.toml", "usr/local/etc/net-gazer/libnet-gazer-01.toml", "644"],
+    # ldconfig
+    ["etc/misc/ld.so.conf.d/libnet-gazer-01.conf", "etc/ld.so.conf.d/libnet-gazer-01.conf", "644"],
     # assets
     ["LICENSE", "/usr/share/doc/net-gazer/LICENSE-lib_01", "644"],
 ]
