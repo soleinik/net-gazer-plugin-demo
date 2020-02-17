@@ -4,15 +4,13 @@ extern crate net_gazer_core as core;
 use core::*;
 use pnet::packet::ethernet::EthernetPacket;
 
+const ID:u8=0;
+const NAME:&str="Demo plugin";
 
-const ID:u8=10;
-const NAME:&str="Test plugin";
+#[derive(Default)]
+pub struct DemoPlugin;
 
-
-pub struct Test;
-
-
-impl <'p, 'd> Plugin<'p, EthernetPacket<'d>> for Test{
+impl Plugin for DemoPlugin{
 
     fn get_name(&self)->&str{NAME}
 
@@ -20,24 +18,21 @@ impl <'p, 'd> Plugin<'p, EthernetPacket<'d>> for Test{
  
     fn on_load(&self){
         env_logger::init();
-
-        error!("Hello from [{}] \"{}\"! ", ID, NAME);
-
+        info!("Hello from \"{}\"(message_id:{}), ! ", NAME, ID);
     }
+
     fn on_unload(&self){
-        error!("Good bye from [{}] \"{}\" ", ID, NAME);
+        info!("Good bye from \"{}\"(message_id:{})! ", NAME, ID);
     }
 
-    fn process(&self, _tx:&'_ CoreSender, _pkt:&'_ EthernetPacket){
-        error!("plugin processing with [{}] \"{}\"", ID, NAME);
+    fn process(&self, _tx:CoreSender, _pkt:&EthernetPacket){
+        info!("Processing with \"{}\"(message_id:{})", NAME,ID);
     }
-
 }
 
-
 #[no_mangle]
-pub extern "C" fn net_gazer_plugin_new<'p,'d> () -> * mut dyn Plugin<'p, EthernetPacket<'d>>{
-     let boxed:Box<Test> = Box::new(Test{});
+pub extern "C" fn net_gazer_plugin_new () -> * mut dyn Plugin{
+     let boxed:Box<DemoPlugin> = Box::new(DemoPlugin::default());
      Box::into_raw(boxed)
 }
 
