@@ -17,16 +17,16 @@ impl Plugin for DemoPlugin{
 
     fn get_id(&self) -> u8 {ID}
 
-    fn on_load(&self, _iface:&NetworkInterface){
+    fn on_load(&mut self, _iface:&NetworkInterface, _tx:CoreSender){
         env_logger::init();
         info!("Hello from \"{}\"(message_id:{}), ! ", NAME, ID);
     }
 
-    fn on_unload(&self){
+    fn on_unload(&mut self){
         info!("Good bye from \"{}\"(message_id:{})! ", NAME, ID);
     }
 
-    fn process(&self, _tx:CoreSender, _pkt:&EthernetPacket){
+    fn process(&self, _pkt:&EthernetPacket){
         info!("Processing with \"{}\"(message_id:{})", NAME,ID);
     }
 }
