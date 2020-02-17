@@ -3,6 +3,7 @@ extern crate net_gazer_core as core;
 
 use core::*;
 use pnet::packet::ethernet::EthernetPacket;
+use pnet::datalink::NetworkInterface;
 
 const ID:u8=0;
 const NAME:&str="Demo plugin";
@@ -15,8 +16,8 @@ impl Plugin for DemoPlugin{
     fn get_name(&self)->&str{NAME}
 
     fn get_id(&self) -> u8 {ID}
- 
-    fn on_load(&self){
+
+    fn on_load(&self, _iface:&NetworkInterface){
         env_logger::init();
         info!("Hello from \"{}\"(message_id:{}), ! ", NAME, ID);
     }
