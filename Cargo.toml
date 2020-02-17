@@ -17,7 +17,7 @@ pnet = "0.25.0"
 
 [lib]
 name = "net_gazer_demo"
-crate-type = ["dylib"]
+crate-type = ["cdylib"]
 
 
 
