@@ -5,7 +5,7 @@ use core::*;
 use pnet::packet::ethernet::EthernetPacket;
 use pnet::datalink::NetworkInterface;
 
-const ID:u8=0;
+const ID:u8=core::PLUGIN_ID_DEMO;
 const NAME:&str="Demo plugin";
 
 #[derive(Default)]
