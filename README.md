@@ -1,2 +1,2 @@
-# net-gazer-sensor-plugin
+# net-gazer-plugin-demo
 sample plugin
