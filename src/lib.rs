@@ -32,7 +32,7 @@ impl Plugin for DemoPlugin{
 }
 
 #[no_mangle]
-pub extern "C" fn net_gazer_plugin_new () -> * mut dyn Plugin{
+pub extern "C" fn net_gazer_plugin_new () -> * mut DemoPlugin{
      let boxed:Box<DemoPlugin> = Box::new(DemoPlugin::default());
      Box::into_raw(boxed)
 }

@@ -10,10 +10,10 @@ description = "net-gazer - demo plugin"
 [dependencies]
 net-gazer-core = { git = "https://github.com/soleinik/net-gazer-core", branch = "master"}
 
-log = "0.4.8"
-env_logger = "0.7.1"
+log = "0.4"
+env_logger = "0.11"
 
-pnet = "0.25.0"
+pnet = "0.35"
 
 [lib]
 name = "net_gazer_demo"
